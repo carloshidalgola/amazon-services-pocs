@@ -12,18 +12,18 @@ namespace REDEBAN.PRY.BOTONCLOUD.SNS
     {
         static void Main(string[] args)
         {
-            //Test_AmazonSES();
-            Test_AmazonSNS();
+            Test_AmazonSES();
+            //Test_AmazonSNS();
         }
 
 
         static void Test_AmazonSES(){
             String FROM = "megan71545@flmcat.com";
-            String FROMNAME = "Luis";
+            String FROMNAME = "PANCHO";
             String TO = "jokkupusto@biyac.com";
-            String SMTP_USERNAME = "AKIA4FWWTKX5BYNIXRHI";
-            String SMTP_PASSWORD = "BPxlSW97wkXxAxnhOdC0c6hdXPNiCMK6Yg+XgVBfz6hm";
-            String HOST = "email-smtp.sa-east-1.amazonaws.com";
+            String SMTP_USERNAME = "AKIA4FWWTKX5BYNIXRHI"; //NO TOCAR
+            String SMTP_PASSWORD = "BPxlSW97wkXxAxnhOdC0c6hdXPNiCMK6Yg+XgVBfz6hm"; //NO TOCAR
+            String HOST = "email-smtp.sa-east-1.amazonaws.com"; //NO TOCAR
             int PORT = 587;
 
             String SUBJECT = "Redeban - AMAZON SES test"; 
@@ -61,8 +61,8 @@ namespace REDEBAN.PRY.BOTONCLOUD.SNS
         }
 
     static void Test_AmazonSNS(){
-            String awsKeyId = "AKIA4FWWTKX5LGY65TU6";
-            String awsKeySecret = "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";
+            String awsKeyId = "AKIA4FWWTKX5LGY65TU6";  //NO MODIFICAR
+            String awsKeySecret = "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";//NO MODIFICAR
 
             string message = "Redeban - AMAZON SES test - " + DateTime.Now.ToShortTimeString();
             var awsCredentials = new BasicAWSCredentials(awsKeyId, awsKeySecret);
@@ -70,7 +70,7 @@ namespace REDEBAN.PRY.BOTONCLOUD.SNS
             var pubRequest = new PublishRequest
             {
                 Message = message,
-                PhoneNumber = "+51940375749"
+                PhoneNumber = "+51929735100"
             };
 
             pubRequest.MessageAttributes.Add("AWS.SNS.SMS.SMSType", new MessageAttributeValue { StringValue = "Transactional", DataType = "String" });
