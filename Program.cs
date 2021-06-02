@@ -12,25 +12,21 @@ namespace REDEBAN.PRY.BOTONCLOUD.SNS
     {
         static void Main(string[] args)
         {
-            Test_AmazonSES();
-            //Test_AmazonSNS();
+            Envio_Correo();
+            //Envio_SMS();
         }
 
-
-        static void Test_AmazonSES(){
-            String FROM = "megan71545@flmcat.com";
-            String FROMNAME = "PANCHO";
-            String TO = "jokkupusto@biyac.com";
-            String SMTP_USERNAME = "AKIA4FWWTKX5BYNIXRHI"; //NO TOCAR
-            String SMTP_PASSWORD = "BPxlSW97wkXxAxnhOdC0c6hdXPNiCMK6Yg+XgVBfz6hm"; //NO TOCAR
-            String HOST = "email-smtp.sa-east-1.amazonaws.com"; //NO TOCAR
+        static void Envio_Correo(){
+            String FROM = "megan71545@flmcat.com"; //Cuenta verificada FROM
+            String FROMNAME = "PANCHO"; 
+            String TO = "jokkupusto@biyac.com"; //Cuenta verificada TO
+            String SMTP_USERNAME = "AKIA4FWWTKX5MRNYYIXE";  //Nombre Usuario SMTP
+            String SMTP_PASSWORD = "BL0qSe9DP10vGvEZW0igs3fFL0yRZFpvdQQKgElSNjo0";  //Contraseña SMTP
+            String HOST = "email-smtp.sa-east-1.amazonaws.com"; //Nombre del Servidor SMTP
             int PORT = 587;
-
-            String SUBJECT = "Redeban - AMAZON SES test"; 
+            String SUBJECT = "Envio Correo por SNS"; 
             String BODY = "<h1>Amazon SES Test</h1>" +
-                "<p>Aquí va el correo con la plantilla embebida " +
-                "<a href='https://aws.amazon.com/ses'>Amazon SES</a> SMTP interface " +
-                "</p>";
+                "<p>Aquí va el correo con la plantilla embebida</p>";
 
             MailMessage message = new MailMessage();
             message.IsBodyHtml = true;
@@ -60,35 +56,34 @@ namespace REDEBAN.PRY.BOTONCLOUD.SNS
             }
         }
 
-    static void Test_AmazonSNS(){
-            String awsKeyId = "AKIA4FWWTKX5LGY65TU6";  //NO MODIFICAR
-            String awsKeySecret = "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";//NO MODIFICAR
+    static void Envio_SMS(){
+    //Para enviar un email por Amazon SNS se requiere: 
+    //Crear un Grupo/Usuario en IAM con permisos para SNS
+    //Luego de crear el usuario Amazon proveerá su AccessKeyID y SecretAccessKey
+    String awsKeyId = "AKIA4FWWTKX5LGY65TU6"; //Access Key ID
+    String awsKeySecret = "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"; //Secret Access Key
 
-            string message = "Redeban - AMAZON SES test - " + DateTime.Now.ToShortTimeString();
-            var awsCredentials = new BasicAWSCredentials(awsKeyId, awsKeySecret);
-            AmazonSimpleNotificationServiceClient smsClient = new AmazonSimpleNotificationServiceClient(awsCredentials, Amazon.RegionEndpoint.SAEast1);
-            var pubRequest = new PublishRequest
-            {
-                Message = message,
-                PhoneNumber = "+51929735100"
-            };
+    String message = "Envio de Correo por SES";
+    var awsCredentials = new BasicAWSCredentials(awsKeyId, awsKeySecret);
+    var smsClient = new AmazonSimpleNotificationServiceClient(awsCredentials, Amazon.RegionEndpoint.SAEast1);
+    var pubRequest = new PublishRequest
+    {
+        Message = message,
+        PhoneNumber = "+51940375749" //Teléfono del Cliente
+    };
 
-            pubRequest.MessageAttributes.Add("AWS.SNS.SMS.SMSType", new MessageAttributeValue { StringValue = "Transactional", DataType = "String" });
+    pubRequest.MessageAttributes.Add("AWS.SNS.SMS.SMSType", new MessageAttributeValue { StringValue = "Transactional", DataType = "String" });
 
-            try
-            {
-                var response = smsClient.PublishAsync(pubRequest);
-
-                Console.WriteLine("Mensaje enviado");
-                Console.ReadKey();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Caught exception publishing request:");
-                Console.WriteLine(ex.Message);
-                Console.ReadKey();
-            }
-
+    try {
+        var response = smsClient.PublishAsync(pubRequest);
+        Console.WriteLine("Mensaje enviado");
+        Console.ReadKey();
+        }
+    catch (Exception ex) {
+        Console.WriteLine("Caught exception publishing request:");
+        Console.WriteLine(ex.Message);
+        Console.ReadKey();
+        }
         }
     }
 }
