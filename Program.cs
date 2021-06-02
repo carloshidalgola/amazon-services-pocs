@@ -19,7 +19,7 @@ namespace REDEBAN.PRY.BOTONCLOUD.SNS
         static void Envio_Correo(){
             String FROM = "megan71545@flmcat.com"; //Cuenta verificada FROM
             String FROMNAME = "PANCHO"; 
-            String TO = "jokkupusto@biyac.com"; //Cuenta verificada TO
+            String TO = "megan71545@flmcat.com"; //Cuenta verificada TO
             String SMTP_USERNAME = "AKIA4FWWTKX5MRNYYIXE";  //Nombre Usuario SMTP
             String SMTP_PASSWORD = "BL0qSe9DP10vGvEZW0igs3fFL0yRZFpvdQQKgElSNjo0";  //Contraseña SMTP
             String HOST = "email-smtp.sa-east-1.amazonaws.com"; //Nombre del Servidor SMTP
@@ -34,7 +34,7 @@ namespace REDEBAN.PRY.BOTONCLOUD.SNS
             message.To.Add(new MailAddress(TO));
             message.Subject = SUBJECT;
             message.Body = BODY;
-
+            message.Attachments.Add(new Attachment(@"d:\Voucher_Test CARLOS_Y_JOSE_GARAY.pdf")); //Attachment url/bytes
             using (var client = new System.Net.Mail.SmtpClient(HOST, PORT))
             { 
                 client.Credentials = new NetworkCredential(SMTP_USERNAME, SMTP_PASSWORD);                 
