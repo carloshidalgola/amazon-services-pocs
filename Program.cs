@@ -17,11 +17,11 @@ namespace REDEBAN.PRY.BOTONCLOUD.SNS
         }
 
         static void Envio_Correo(){
-            String FROM = "megan71545@flmcat.com"; //Cuenta verificada FROM
+            String FROM = "correoFrom@flmcat.com"; //Cuenta verificada FROM
             String FROMNAME = "PANCHO"; 
-            String TO = "megan71545@flmcat.com"; //Cuenta verificada TO
-            String SMTP_USERNAME = "AKIA4FWWTKX5MRNYYIXE";  //Nombre Usuario SMTP
-            String SMTP_PASSWORD = "BL0qSe9DP10vGvEZW0igs3fFL0yRZFpvdQQKgElSNjo0";  //Contraseña SMTP
+            String TO = "correoTo@flmcat.com"; //Cuenta verificada TO
+            String SMTP_USERNAME = "********";  //Nombre Usuario SMTP
+            String SMTP_PASSWORD = "**********";  //Contraseña SMTP
             String HOST = "email-smtp.sa-east-1.amazonaws.com"; //Nombre del Servidor SMTP
             int PORT = 587;
             String SUBJECT = "Envio Correo por SNS"; 
@@ -60,8 +60,8 @@ namespace REDEBAN.PRY.BOTONCLOUD.SNS
     //Para enviar un email por Amazon SNS se requiere: 
     //Crear un Grupo/Usuario en IAM con permisos para SNS
     //Luego de crear el usuario Amazon proveerá su AccessKeyID y SecretAccessKey
-    String awsKeyId = "AKIA4FWWTKX5LGY65TU6"; //Access Key ID
-    String awsKeySecret = "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"; //Secret Access Key
+    String awsKeyId = "**********"; //Access Key ID
+    String awsKeySecret = "**********"; //Secret Access Key
 
     String message = "Envio de Correo por SES";
     var awsCredentials = new BasicAWSCredentials(awsKeyId, awsKeySecret);
